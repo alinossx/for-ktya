@@ -327,32 +327,41 @@ document.getElementById('glass').style.opacity = '0.3';
 }
 updateBdayStatus();
 }
-// --- ЛОГИКА ЭКРАНА 5: ОТКРЫТИЕ ПОДАРКОВ С ДЕНЬГАМИ ---
-let openedGiftsCount = 0;
-function openGift(el) {
-if(el.innerText === '🎁') {
-el.innerText = '🔓';
-el.style.opacity = '0.4';
-openedGiftsCount++;
-const rect = el.getBoundingClientRect();
-for (let i = 0; i < 16; i++) {
-const p = document.createElement('div');
-p.className = 'money-particle';
-p.innerText = ['💵', '💰', '💸', '💎', '🪙'][Math.floor(Math.random() * 5)];
-p.style.left = (rect.left + window.scrollX + 15) + 'px';
-p.style.top = (rect.top + window.scrollY) + 'px';
-const angle = Math.random() * 360 * Math.PI / 180;
-const dist = Math.random() * 150 + 70;
-p.style.setProperty('--mx', Math.cos(angle) * dist + 'px');
-p.style.setProperty('--my', (Math.sin(angle) * dist - 65) + 'px');
-document.body.appendChild(p);
-setTimeout(() => p.remove(), 1200);
-}
-if(openedGiftsCount === 6) {
-document.getElementById('gifts-next').classList.remove('hidden');
-}
-}
-}
+        // --- ЛОГИКА ЭКРАНА 5: ОТКРЫТИЕ ПОДАРКОВ С ДЕНЬГАМИ ---
+        let openedGiftsCount = 0;
+        function openGift(el) {
+            // Проверяем состояние коробки через класс, а не через эмодзи
+            if (!el.classList.contains('opened')) {
+                el.classList.add('opened');
+                el.innerText = '🔓';
+                el.style.opacity = '0.4';
+                openedGiftsCount++;
+                
+                const rect = el.getBoundingClientRect();
+                for (let i = 0; i < 16; i++) {
+                    const p = document.createElement('div');
+                    p.className = 'money-particle';
+                    // Массив безопасных символов
+                    const moneyEmojis = ['💵', '💰', '💸', '💎', '🪙'];
+                    p.innerText = moneyEmojis[Math.floor(Math.random() * moneyEmojis.length)];
+                    p.style.left = (rect.left + window.scrollX + 15) + 'px';
+                    p.style.top = (rect.top + window.scrollY) + 'px';
+
+                    const angle = Math.random() * 360 * Math.PI / 180;
+                    const dist = Math.random() * 150 + 70;
+                    p.style.setProperty('--mx', Math.cos(angle) * dist + 'px');
+                    p.style.setProperty('--my', (Math.sin(angle) * dist - 65) + 'px');
+
+                    document.body.appendChild(p);
+                    setTimeout(() => p.remove(), 1200);
+                }
+
+                if(openedGiftsCount === 6) {
+                    document.getElementById('gifts-next').classList.remove('hidden');
+                }
+            }
+        }
+
     </script>
 </body>
 </html>
