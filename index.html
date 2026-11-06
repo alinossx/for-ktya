@@ -5,63 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Для Катеньки ❤️</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
-        body { min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative; transition: background 0.8s ease; background: #fff5f5; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; background: #fff5f5; transition: background 0.5s; }
+        .card { background: rgba(255, 255, 255, 0.95); padding: 25px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; width: 90%; max-width: 400px; display: none; }
+        .card.active { display: block; }
+        .btn { background: #ff4b6e; color: white; border: none; padding: 14px 28px; font-size: 16px; font-weight: bold; border-radius: 50px; cursor: pointer; width: 100%; text-transform: uppercase; margin-top: 15px; box-shadow: 0 5px 15px rgba(255,75,110,0.2); }
         
-        /* Стили кнопок */
-        .btn { background: #ff4b6e; color: white; border: none; padding: 14px 28px; font-size: 16px; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 5px 15px rgba(255, 75, 110, 0.3); transition: all 0.3s ease; width: 100%; text-transform: uppercase; margin-top: 15px; }
-        .btn:active { transform: scale(0.95); }
-        
-        /* Основные карточки */
-        .card { background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(10px); padding: 25px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 440px; z-index: 10; opacity: 0; transform: translateY(30px) scale(0.95); transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); display: none; }
-        .card.active { display: block; opacity: 1; transform: translateY(0) scale(1); }
+        /* Экран 1: Биение сердца */
+        .big-heart { font-size: 80px; margin: 30px 0; animation: beat 0.8s infinite alternate; user-select: none; }
+        @keyframes beat { to { transform: scale(1.15); } }
 
-        /* ЭКРАН 1: Интерактивный холст для сердца */
-        .canvas-container { position: relative; width: 100%; height: 260px; margin: 10px 0; }
-        canvas { width: 100%; height: 100%; display: block; }
-
-        /* ЭКРАН 2: Готическая тема */
+        /* Экран 2: Готика */
         .gothic-theme { background: #0d0d0d !important; }
-        .gothic-card { background: rgba(20, 20, 20, 0.92) !important; border: 1px solid #800020 !important; box-shadow: 0 10px 35px rgba(128, 0, 32, 0.6) !important; }
-        .gothic-card h1 { color: #800020 !important; font-size: 24px; margin-bottom: 15px; }
-        .lyrics-box { min-height: 120px; margin: 20px 0; display: flex; flex-direction: column; justify-content: center; }
-        .lyric-fr { font-size: 19px; color: #e60026; font-weight: bold; margin-bottom: 8px; transition: opacity 0.4s; }
-        .lyric-ru { font-size: 14px; color: #8c8c8c; font-style: italic; transition: opacity 0.4s; }
-        .rose-box { font-size: 70px; cursor: pointer; margin: 20px 0; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: inline-block; animation: wobble 1.2s infinite alternate; }
-        @keyframes wobble { from { transform: rotate(-8deg); } to { transform: rotate(8deg); } }
+        .gothic-card { background: #141414 !important; border: 1px solid #800020; }
+        .gothic-card h1 { color: #800020; }
+        .lyrics-box { min-height: 100px; margin: 20px 0; color: #e60026; font-size: 18px; font-weight: bold; font-style: italic; }
+        .lyrics-ru { font-size: 14px; color: #8c8c8c; margin-top: 5px; font-weight: normal; }
+        .rose-box { font-size: 60px; cursor: pointer; margin: 15px 0; }
 
-        /* ЭКРАН 3: Гарри Поттер (Солнечное лето) */
-        .hp-theme { background: linear-gradient(135deg, #fffdf0 0%, #ffe899 100%) !important; }
-        .letters-container { display: flex; flex-direction: column; gap: 15px; margin: 20px 0; max-height: 330px; overflow-y: auto; padding-right: 5px; }
-        .hp-letter { background: #fffcf0; border-left: 5px solid #7f1d1d; padding: 14px; border-radius: 8px; text-align: left; box-shadow: 0 4px 12px rgba(0,0,0,0.06); opacity: 0; transform: translateY(25px); transition: all 0.7s cubic-bezier(0.215, 0.610, 0.355, 1); }
-        .hp-letter.show { opacity: 1; transform: translateY(0); }
-        .hp-author { font-weight: bold; color: #7f1d1d; margin-bottom: 5px; font-size: 15px; }
-        .hp-text { font-size: 13.5px; color: #451a03; font-style: italic; line-height: 1.4; }
+        /* Экран 3: Гарри Поттер */
+        .hp-theme { background: #fffbe6 !important; }
+        .hp-letter { background: #fffcf0; border-left: 5px solid #7f1d1d; padding: 12px; border-radius: 8px; text-align: left; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .hp-author { font-weight: bold; color: #7f1d1d; font-size: 14px; }
+        .hp-text { font-size: 13px; color: #451a03; font-style: italic; }
 
-        /* ЭКРАН 4: Праздничный торт + Конфетти */
-        .bday-theme { background: linear-gradient(135deg, #ffe5ec 0%, #ffc2d1 100%) !important; }
-        .items-row { display: flex; justify-content: space-around; align-items: center; margin: 25px 0; }
-        .interactive-item { cursor: pointer; transition: transform 0.1s; user-select: none; }
-        .interactive-item:active { transform: scale(0.85); }
-        .cake-img { font-size: 80px; }
-        .glass-img { font-size: 80px; }
-        .confetti, .emoji-fly { position: absolute; pointer-events: none; z-index: 100; animation: fall 1.8s linear forwards; }
-        @keyframes fall { 0% { transform: translateY(-50px) rotate(0deg); opacity: 1; } 100% { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
+        /* Экран 4: Торт и Шампанское */
+        .bday-theme { background: #ffe5ec !important; }
+        .items-row { display: flex; justify-content: space-around; font-size: 70px; margin: 20px 0; }
+        .interactive-item { cursor: pointer; user-select: none; }
 
-        /* ЭКРАН 5: Сетка подарков с салютом денег */
-        .gifts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 25px 0; }
-        .gift-box { font-size: 48px; cursor: pointer; transition: transform 0.2s; user-select: none; }
-        .gift-box:hover { transform: scale(1.15) rotate(5deg); }
-        .money-particle { position: absolute; font-size: 32px; pointer-events: none; z-index: 100; animation: explode 1.2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards; }
-        @keyframes explode { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(var(--mx), var(--my)) scale(0.5); opacity: 0; } }
+        /* Экран 5: Подарки */
+        .gifts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px 0; font-size: 45px; }
+        .gift-box { cursor: pointer; user-select: none; }
 
-        /* ЭКРАН 6: Финал */
-        .final-text { font-size: 15.5px; color: #4a4a4a; line-height: 1.6; text-align: justify; white-space: pre-line; margin-bottom: 20px; font-weight: 600; }
+        /* Экран 6: Текст */
+        .final-text { font-size: 15px; color: #4a4a4a; line-height: 1.6; text-align: justify; white-space: pre-line; }
     </style>
 </head>
 <body>
 
-    <!-- Твой музыкальный плеер (файл music.mp3 должен лежать в репозитории) -->
     <audio id="bg-music" loop>
         <source src="music.mp3" type="audio/mp3">
     </audio>
@@ -69,43 +51,43 @@
     <!-- ЭКРАН 1 -->
     <div id="screen1" class="card active">
         <h1 style="color: #ff4b6e; font-size: 22px;">Готова получить свой подарок? 🤔</h1>
-        <div class="canvas-container">
-            <canvas id="heartCanvas"></canvas>
-        </div>
-        <button class="btn" onclick="goToScreen(1, 2)">Получить подарок</button>
+        <div class="big-heart">❤️</div>
+        <button class="btn" onclick="next(1, 2)">Получить подарок</button>
     </div>
 
     <!-- ЭКРАН 2 -->
     <div id="screen2" class="card gothic-card">
         <h1>The Red Means I Love You 🖤</h1>
-        <div class="lyrics-box" id="lyrics-container"></div>
-        <div id="rose" class="rose-box hidden" onclick="takeRose()">🌹</div>
-        <button id="gothic-next" class="btn hidden" onclick="goToScreen(2, 3)" style="background: #800020; box-shadow: 0 5px 15px rgba(128,0,32,0.4);">Дальше ☀️</button>
+        <div class="lyrics-box" id="lyrics-box"></div>
+        <div id="rose" class="rose-box" onclick="takeRose()" style="display:none;">🌹</div>
+        <button id="gothic-btn" class="btn" onclick="next(2, 3)" style="display:none; background:#800020;">Дальше ☀️</button>
     </div>
 
     <!-- ЭКРАН 3 -->
     <div id="screen3" class="card">
-        <h1 style="color: #7f1d1d; font-size: 23px;">Письма из Хогвартса 🦉</h1>
-        <div class="letters-container" id="letters-box"></div>
-        <button id="hp-next" class="btn hidden" onclick="goToScreen(3, 4)" style="background: #7f1d1d; box-shadow: 0 5px 15px rgba(127,29,29,0.4);">Открыть сладкое 🎂</button>
+        <h1 style="color: #7f1d1d; margin-bottom: 15px;">Письма из Хогвартса 🦉</h1>
+        <div class="hp-letter"><div class="hp-author">🧙‍♂️ Альбус Дамблдор</div><div class="hp-text">«С днем рождения, Катенька! Помни: счастье можно найти даже в самые темные времена, если не забывать обращаться к свету.»</div></div>
+        <div class="hp-letter"><div class="hp-author">🐺 Ремус Люпин</div><div class="hp-text">«Катя, самые искренние поздравления. Расстояние — это лишь цифры, оно бессильно против того, что высечено в самом сердце.»</div></div>
+        <div class="hp-letter"><div class="hp-author">🐾 Сириус Блэк</div><div class="hp-text">«С праздником! Те, кто по-настоящему любят нас, никогда нас не покидают. Они всегда живут внутри нашего разума.»</div></div>
+        <div class="hp-letter"><div class="hp-author">⚡️ Золотое Трио</div><div class="hp-text">«Катя, с днем рождения! Мы точно знаем, что никакая магия во всем мире не сравнится с силой настоящей любви!»</div></div>
+        <button class="btn" onclick="next(3, 4)" style="background:#7f1d1d;">Открыть сладкое 🎂</button>
     </div>
 
     <!-- ЭКРАН 4 -->
     <div id="screen4" class="card">
         <h1 style="color: #ff4b6e;">С Праздником! 🥳</h1>
-        <p style="font-size: 14px; margin-bottom: 10px; color: #666;">Угощайся тортиком и выпей бокал шампанского!</p>
+        <p style="font-size: 14px; margin-top: 5px; color: #666;">Покушай тортик и выпей шампанского!</p>
         <div class="items-row">
-            <div id="cake" class="interactive-item cake-img" onclick="eatCake()">🎂</div>
-            <div id="glass" class="interactive-item glass-img" onclick="drinkChampagne()">🥂</div>
+            <div id="cake" class="interactive-item" onclick="eatCake()">🎂</div>
+            <div id="glass" class="interactive-item" onclick="drink()">🥂</div>
         </div>
-        <p id="bday-status" style="font-weight: bold; color: #ff4b6e; min-height: 24px; font-size: 15px;"></p>
-        <button id="bday-next" class="btn hidden" onclick="goToScreen(4, 5)">Перейти к подаркам 🎁</button>
+        <button id="bday-btn" class="btn" onclick="next(4, 5)" style="display:none;">Перейти к подаркам 🎁</button>
     </div>
 
     <!-- ЭКРАН 5 -->
     <div id="screen5" class="card">
         <h1 style="color: #d48d00;">Твои подарки! 🎁</h1>
-        <p style="color: #666; font-size: 14px;">Распакуй их все, чтобы открыть послание!</p>
+        <p style="color: #666; font-size: 14px;">Открой их все!</p>
         <div class="gifts-grid">
             <div class="gift-box" onclick="openGift(this)">🎁</div>
             <div class="gift-box" onclick="openGift(this)">🎁</div>
@@ -114,7 +96,7 @@
             <div class="gift-box" onclick="openGift(this)">🎁</div>
             <div class="gift-box" onclick="openGift(this)">🎁</div>
         </div>
-        <button id="gifts-next" class="btn hidden" onclick="goToScreen(5, 6)" style="background: #d48d00; box-shadow: 0 5px 15px rgba(212,141,0,0.4)">Читать послание ❤️</button>
+        <button id="gifts-btn" class="btn" onclick="next(5, 6)" style="display:none; background:#d48d00;">Читать послание ❤️</button>
     </div>
 
     <!-- ЭКРАН 6 -->
@@ -123,245 +105,85 @@
         <div class="final-text">Катенька, я поздравляю тебя с днём рождения, желаю самого лучшего и прекрасного и хочу что бы ты помнила, не смотря на наше расстояние ты всегда будешь человеком которого я люблю, ценю и помню вне зависимости где нахожусь. 
 
         Все что со мной происходит наводит на мысли о тебе и времени что мы вместе проводили. Ты будешь навсегда в моем сердце. ❤️</div>
-        <button class="btn" onclick="location.reload()">Посмотреть еще раз ✨</button>
+        <button class="btn" onclick="location.reload()">Еще раз ✨</button>
     </div>
 
     <script>
-        // Функция переключения экранов
-        function goToScreen(from, to) {
+        function next(from, to) {
             document.getElementById(`screen${from}`).classList.remove('active');
+            document.getElementById(`screen${to}`).classList.add('active');
             
             if(from === 1) {
-                // Запуск музыки при первом клике на главную кнопку
                 document.getElementById('bg-music').play().catch(() => {});
             }
-
-            setTimeout(() => {
-                document.getElementById(`screen${from}`).style.display = 'none';
-                const nextCard = document.getElementById(`screen${to}`);
-                nextCard.style.display = 'block';
-                
-                // Переключение тем оформления
-                if(to === 2) document.body.className = 'gothic-theme';
-                if(to === 3) document.body.className = 'hp-theme';
-                if(to === 4) document.body.className = 'bday-theme';
-                if(to === 5 || to === 6) document.body.className = '';
-
-                setTimeout(() => {
-                    nextCard.classList.add('active');
-                    if(to === 2) startGothicLyrics();
-                    if(to === 3) startHPLetters();
-                    if(to === 4) triggerConfettiLoop();
-                }, 50);
-            }, 600);
-        }
-
-        // --- ЛОГИКА ЭКРАНА 1: ИНТЕРАКТИВНОЕ СЕРДЦЕ ИЗ ТОЧЕК ---
-const canvas = document.getElementById('heartCanvas');
-const ctx = canvas.getContext('2d');
-let particles = [];
-let mouse = { x: null, y: null, radius: 45 };
-function initCanvas() {
-canvas.width = canvas.parentElement.clientWidth;
-canvas.height = canvas.parentElement.clientHeight;
-particles = [];
-for (let y = -10; y <= 10; y += 0.72) {
-for (let x = -13; x <= 13; x += 0.72) {
-if ((Math.pow(x,2) + Math.pow(y,2) - 100) <= Math.pow(x,2) * Math.pow(y,3) * 0.01) {
-let posX = canvas.width / 2 + x * (canvas.width * 0.032);
-let posY = canvas.height / 2 - y * (canvas.height * 0.032) + 12;
-particles.push({
-x: posX, y: posY,
-baseX: posX, baseY: posY,
-size: 3.2, color: '#ff4b6e',
-vx: 0, vy: 0
-});
-}
-}
-}
-}
-function drawParticles() {
-ctx.clearRect(0, 0, canvas.width, canvas.height);
-for (let p of particles) {
-let dx = mouse.x - p.x;
-let dy = mouse.y - p.y;
-let dist = Math.sqrt(dx * dx + dy * dy);
-if (dist < mouse.radius) {
-let force = (mouse.radius - dist) / mouse.radius;
-let angle = Math.atan2(dy, dx);
-p.vx -= Math.cos(angle) * force * 7.5;
-p.vy -= Math.sin(angle) * force * 7.5;
-} else {
-p.vx += (p.baseX - p.x) * 0.08;
-p.vy += (p.baseY - p.y) * 0.08;
-}
-p.vx *= 0.85; p.vy *= 0.85;
-p.x += p.vx; p.y += p.vy;
-ctx.fillStyle = p.color;
-ctx.beginPath();
-ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-ctx.fill();
-}
-requestAnimationFrame(drawParticles);
-}
-const handleMove = (e) => {
-const rect = canvas.getBoundingClientRect();
-const clientX = e.touches ? e.touches.clientX : e.clientX;
-const clientY = e.touches ? e.touches.clientY : e.clientY;
-mouse.x = clientX - rect.left;
-mouse.y = clientY - rect.top;
-};
-canvas.addEventListener('mousemove', handleMove);
-canvas.addEventListener('touchmove', handleMove);
-const handleLeave = () => { mouse.x = null; mouse.y = null; };
-canvas.addEventListener('mouseleave', handleLeave);
-canvas.addEventListener('touchend', handleLeave);
-initCanvas();
-drawParticles();
-// --- ЛОГИКА ЭКРАНА 2: ГОТИКА И СИНХРОННЫЙ ТЕКСТ ПЕСНИ ---
-const gothicLyrics = [
-{ fr: "The red means I love you...", ru: "Красный цвет означает, что я люблю тебя..." },
-{ fr: "Mon cœur bat pour toi...", ru: "Моё сердце бьётся только для тебя..." },
-{ fr: "Don't look away, see my truth...", ru: "Не отводи взгляд, увидь мою искренность..." },
-{ fr: "Ты — вся моя жизнь и моя бесконечность. 🖤", ru: "" }
-];
-function startGothicLyrics() {
-const container = document.getElementById('lyrics-container');
-let idx = 0;
-function showLine() {
-if(idx < gothicLyrics.length) {
-container.innerHTML = <div class="lyric-fr">${gothicLyrics[idx].fr}</div> <div class="lyric-ru">${gothicLyrics[idx].ru}</div>;
-idx++;
-setTimeout(showLine, 4200);
-} else {
-container.innerHTML = <div class="lyric-fr" style="color: #800020; font-size: 16px;">Возьми эту розу... 🌹</div>;
-document.getElementById('rose').classList.remove('hidden');
-}
-}
-showLine();
-}
-function takeRose() {
-// Эффект исчезновения розы при "забирании" Катей
-document.getElementById('rose').style.transform = 'scale(0) rotate(720deg)';
-setTimeout(() => {
-document.getElementById('rose').style.display = 'none';
-document.getElementById('gothic-next').classList.remove('hidden');
-}, 400);
-}
-// --- ЛОГИКА ЭКРАНА 3: ГАРРИ ПОТТЕР ---
-const hpLetters = [
-{ author: "🧙‍♂️ Альбус Дамблдор", text: "«С днем рождения, Катенька! Помни: счастье можно найти даже в самые темные времена, если не забывать обращаться к свету. Ваша любовь сильнее любых расстояний.»" },
-{ author: "🐺 Ремус Люпин", text: "«Катя, самые искренние поздравления. Расстояние — это лишь цифры, оно бессильно против того, что высечено в самом сердце. Будь счастлива!»" },
-{ author: "🐾 Сириус Блэк", text: "«С праздником! Те, кто по-настоящему любят нас, никогда нас не покидают. Они всегда живут внутри нашего разума и души. Проведи этот день незабываемо!»" },
-{ author: "⚡️ Золотое Трио (Гарри, Рон, Гермиона)", text: "«Катя, с днем рождения! Мы точно знаем, что никакая магия во всем мире не сравнится с силой настоящей любви. Вы вместе сквозь любые мили!»" }
-];
-function startHPLetters() {
-const box = document.getElementById('letters-box');
-let idx = 0;
-function renderLetter() {
-if(idx < hpLetters.length) {
-const div = document.createElement('div');
-div.className = 'hp-letter';
-div.innerHTML = <div class="hp-author">${hpLetters[idx].author}</div><div class="hp-text">${hpLetters[idx].text}</div>;
-box.appendChild(div);
-setTimeout(() => div.classList.add('show'), 50);
-box.scrollTop = box.scrollHeight; // Плавный скролл вниз
-idx++;
-setTimeout(renderLetter, 3800);
-} else {
-document.getElementById('hp-next').classList.remove('hidden');
-}
-}
-renderLetter();
-}
-// --- ЛОГИКА ЭКРАНА 4: ТОРТ, ШАМПАНСКОЕ И ЦИКЛ КОНФЕТТИ ---
-function triggerConfettiLoop() {
-for(let i=0; i<35; i++) {
-setTimeout(() => {
-const c = document.createElement('div');
-c.className = 'confetti';
-c.style.left = Math.random() * 100 + 'vw';
-c.style.background = ['#ff4b6e','#ffcc00','#00ccff','#ff9900','#ff66cc'][Math.floor(Math.random()*5)];
-c.style.width = Math.random()*8 + 6 + 'px';
-c.style.height = Math.random()*15 + 8 + 'px';
-c.style.animationDuration = Math.random()*1 + 1.4 + 's';
-document.body.appendChild(c);
-setTimeout(() => c.remove(), 1900);
-if(i % 3 === 0) {
-const e = document.createElement('div');
-e.className = 'emoji-fly';
-e.innerText = '🥳';
-e.style.left = Math.random() * 100 + 'vw';
-e.style.fontSize = Math.random()*10 + 22 + 'px';
-e.style.animationDuration = Math.random()*1 + 1.6 + 's';
-document.body.appendChild(e);
-setTimeout(() => e.remove(), 2400);
-}
-}, i * 130);
-}
-}
-let cakeStage = 0;
-let glassStage = 0;
-function updateBdayStatus() {
-const status = document.getElementById('bday-status');
-if(cakeStage === 4 && glassStage === 2) {
-status.innerText = "Всё съедено и выпито до дна! 🎂🥂";
-document.getElementById('bday-next').classList.remove('hidden');
-}
-}
-function eatCake() {
-if(cakeStage >= 4) return;
-cakeStage++;
-const items = ['🎂','🍰','🧁','🧁','😋'];
-document.getElementById('cake').innerText = items[cakeStage];
-if(cakeStage === 4) document.getElementById('cake').style.opacity = '0.3';
-updateBdayStatus();
-}
-function drinkChampagne() {
-if(glassStage >= 2) return;
-glassStage++;
-if(glassStage === 1) document.getElementById('glass').innerText = '🥂';
-if(glassStage === 2) {
-document.getElementById('glass').innerText = '🍾';
-document.getElementById('glass').style.opacity = '0.3';
-}
-updateBdayStatus();
-}
-        // --- ЛОГИКА ЭКРАНА 5: ОТКРЫТИЕ ПОДАРКОВ С ДЕНЬГАМИ ---
-        let openedGiftsCount = 0;
-        function openGift(el) {
-            // Проверяем состояние коробки через класс, а не через эмодзи
-            if (!el.classList.contains('opened')) {
-                el.classList.add('opened');
-                el.innerText = '🔓';
-                el.style.opacity = '0.4';
-                openedGiftsCount++;
-                
-                const rect = el.getBoundingClientRect();
-                for (let i = 0; i < 16; i++) {
-                    const p = document.createElement('div');
-                    p.className = 'money-particle';
-                    // Массив безопасных символов
-                    const moneyEmojis = ['💵', '💰', '💸', '💎', '🪙'];
-                    p.innerText = moneyEmojis[Math.floor(Math.random() * moneyEmojis.length)];
-                    p.style.left = (rect.left + window.scrollX + 15) + 'px';
-                    p.style.top = (rect.top + window.scrollY) + 'px';
-
-                    const angle = Math.random() * 360 * Math.PI / 180;
-                    const dist = Math.random() * 150 + 70;
-                    p.style.setProperty('--mx', Math.cos(angle) * dist + 'px');
-                    p.style.setProperty('--my', (Math.sin(angle) * dist - 65) + 'px');
-
-                    document.body.appendChild(p);
-                    setTimeout(() => p.remove(), 1200);
-                }
-
-                if(openedGiftsCount === 6) {
-                    document.getElementById('gifts-next').classList.remove('hidden');
-                }
+            
+            if(to === 2) {
+                document.body.className = 'gothic-theme';
+                startLyrics();
+            } else if(to === 3) {
+                document.body.className = 'hp-theme';
+            } else if(to === 4) {
+                document.body.className = 'bday-theme';
+            } else {
+                document.body.className = '';
             }
         }
 
+        const lines = [
+            { f: "The red means I love you...", r: "Красный цвет означает, что я люблю тебя..." },
+            { f: "Mon cœur bat pour toi...", r: "Моё сердце бьётся только для тебя..." },
+            { f: "Don't look away, see my truth...", r: "Не отводи взгляд, увидь мою искренность..." },
+            { f: "Ты — вся моя жизнь. 🖤", r: "" }
+        ];
+
+        function startLyrics() {
+            const box = document.getElementById('lyrics-box');
+            let i = 0;
+            function show() {
+                if(i < lines.length) {
+                    box.innerHTML = `<div>${lines[i].f}</div><div class="lyrics-ru">${lines[i].r}</div>`;
+                    i++;
+                    setTimeout(show, 3500);
+                } else {
+                    box.innerHTML = '<div>Забери эту розу... 🌹</div>';
+                    document.getElementById('rose').style.display = 'inline-block';
+                }
+            }
+            show();
+        }
+
+        function takeRose() {
+            document.getElementById('rose').style.display = 'none';
+            document.getElementById('gothic-btn').style.display = 'block';
+        }
+
+        let cake = 0, glass = 0;
+        function eatCake() {
+            cake++;
+            const stages = ['🎂','🍰','🧁','😋'];
+            if(cake <= 3) document.getElementById('cake').innerText = stages[cake];
+            if(cake >= 3) checkBday();
+        }
+        function drink() {
+            glass++;
+            if(glass >= 2) {
+                document.getElementById('glass').innerText = '🍾';
+                checkBday();
+            }
+        }
+        function checkBday() {
+            if(cake >= 3 && glass >= 2) document.getElementById('bday-btn').style.style.display = 'block';
+        }
+
+        let gifts = 0;
+        function openGift(el) {
+            if(el.innerText === '🎁') {
+                el.innerText = '💵';
+                el.style.opacity = '0.5';
+                gifts++;
+                if(gifts === 6) document.getElementById('gifts-btn').style.display = 'block';
+            }
+        }
     </script>
 </body>
 </html>
